@@ -1,6 +1,11 @@
-<h1>Lista de Clientes</h1>
-<a href="{{ route('clientes.create') }}">Agregar Cliente</a>
+<em><h1>Lista de Clientes</h1></em>
+<a href="{{ route('clientes.create') }}"><em>Agregar Cliente</em></a>
 <table border="1">
+    <style>
+        .centrar{
+            text-align: center;
+        }
+    </style>
     <tr>
         <th>DNI</th>
         <th>Nombre</th>
