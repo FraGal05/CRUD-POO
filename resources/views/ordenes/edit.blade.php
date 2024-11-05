@@ -1,33 +1,42 @@
-<h1>Editar Orden</h1>
-<form action="{{ route('ordenes.update', $orden->nrOrden) }}" method="POST">
+<form action="{{ route('ordenes.update', $orden->id) }}" method="POST">
     @csrf
     @method('PUT')
-    Nro Orden: <input type="text" name="nrOrden" value="{{ $orden->nrOrden }}" disabled><br>
-    Dirección: <input type="text" name="direccion" value="{{ $orden->direccion }}"><br>
-    Tarea:
-    <select name="tarea">
-        @foreach($tareas as $tarea)
-            <option value="{{ $tarea->codigo }}" {{ $orden->tarea->codigo == $tarea->codigo ? 'selected' : '' }}>
-                {{ $tarea->nombre }}
-            </option>
-        @endforeach
-    </select><br>
-    Cliente:
-    <select name="cliente">
+
+    <label for="nrOrden">Número de Orden:</label>
+    <input type="text" name="nrOrden" id="nrOrden" value="{{ $orden->nrOrden }}" required>
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" name="direccion" id="direccion" value="{{ $orden->direccion }}" required>
+
+    <label for="cliente_id">Cliente:</label>
+    <select name="cliente_id" id="cliente_id" required>
         @foreach($clientes as $cliente)
-            <option value="{{ $cliente->dni }}" {{ $orden->cliente->dni == $cliente->dni ? 'selected' : '' }}>
+            <option value="{{ $cliente->dni }}" {{ $orden->cliente_id == $cliente->dni ? 'selected' : '' }}>
                 {{ $cliente->nombre }} {{ $cliente->apellido }}
             </option>
         @endforeach
-    </select><br>
-    Fecha: <input type="date" name="fecha" value="{{ $orden->fecha }}"><br>
-    Estado:
-    <select name="estado">
+    </select>
+
+    <label for="tarea_id">Tarea:</label>
+    <select name="tarea_id" id="tarea_id" required>
+        @foreach($tareas as $tarea)
+            <option value="{{ $tarea->codigo }}" {{ $orden->tarea_id == $tarea->codigo ? 'selected' : '' }}>
+                {{ $tarea->nombre }}
+            </option>
+        @endforeach
+    </select>
+
+    <label for="estado_id">Estado:</label>
+    <select name="estado_id" id="estado_id" required>
         @foreach($estados as $estado)
-            <option value="{{ $estado->codigo }}" {{ $orden->estado->codigo == $estado->codigo ? 'selected' : '' }}>
+            <option value="{{ $estado->codigo }}" {{ $orden->estado_id == $estado->codigo ? 'selected' : '' }}>
                 {{ $estado->nombre }}
             </option>
         @endforeach
-    </select><br>
+    </select>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" id="fecha" value="{{ $orden->fecha }}" required>
+
     <button type="submit">Actualizar</button>
 </form>

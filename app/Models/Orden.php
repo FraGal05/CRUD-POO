@@ -7,28 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Orden extends Model
 {
-    use HasFactory;
+    protected $fillable = ['nrOrden', 'direccion', 'cliente_id', 'tarea_id', 'estado_id', 'fecha'];
 
-    protected $primaryKey = 'N°Orden';
-    public $incrementing = false;
-    protected $fillable = ['N°Orden', 'direccion', 'tarea', 'cliente', 'fecha', 'estado'];
-
-    // Relación con Cliente
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class);
     }
 
-    // Relación con Estado
-    public function estado()
-    {
-        return $this->belongsTo(Estado::class, 'estado');
-    }
-
-    // Relación con Tarea
     public function tarea()
     {
-        return $this->belongsTo(Tarea::class, 'tarea');
+        return $this->belongsTo(Tarea::class);
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
     }
 }
-

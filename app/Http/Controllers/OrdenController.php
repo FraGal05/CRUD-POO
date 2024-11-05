@@ -3,85 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orden;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrdenRequest;
-use App\Http\Requests\UpdateOrdenRequest;
+use App\Models\Cliente;
+use App\Models\Tarea;
+use App\Models\Estado;
+use Illuminate\Http\Request;
 
 class OrdenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Listar órdenes
     public function index()
     {
-        //
+        $ordenes = Orden::with(['cliente', 'tarea', 'estado'])->get();
+        return view('ordenes.index', compact('ordenes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Formulario para crear una nueva orden
     public function create()
     {
-        //
+        $clientes = Cliente::all();
+        $tareas = Tarea::all();
+        $estados = Estado::all();
+        return view('ordenes.create', compact('clientes', 'tareas', 'estados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOrdenRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreOrdenRequest $request)
+    // Guardar nueva orden
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nrOrden' => 'required|string',
+            'direccion' => 'required|string',
+            'cliente_id' => 'required|exists:clientes,dni',
+            'tarea_id' => 'required|exists:tareas,codigo',
+            'estado_id' => 'required|exists:estados,codigo',
+            'fecha' => 'required|date',
+        ]);
+
+        Orden::create($request->all());
+
+        return redirect()->route('ordenes.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Orden $orden)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
+    // Formulario para editar una orden
     public function edit(Orden $orden)
     {
-        //
+        $clientes = Cliente::all();
+        $tareas = Tarea::all();
+        $estados = Estado::all();
+        return view('ordenes.edit', compact('orden', 'clientes', 'tareas', 'estados'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOrdenRequest  $request
-     * @param  \App\Models\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOrdenRequest $request, Orden $orden)
+    // Actualizar una orden existente
+    public function update(Request $request, Orden $orden)
     {
-        //
+        $request->validate([
+            'direccion' => 'required|string',
+            'cliente_id' => 'required|exists:clientes,dni',
+            'tarea_id' => 'required|exists:tareas,codigo',
+            'estado_id' => 'required|exists:estados,codigo',
+            'fecha' => 'required|date',
+        ]);
+
+        $orden->update($request->all());
+
+        return redirect()->route('ordenes.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Orden  $orden
-     * @return \Illuminate\Http\Response
-     */
+    // Eliminar una orden
     public function destroy(Orden $orden)
     {
-        //
+        $orden->delete();
+
+        return redirect()->route('ordenes.index');
     }
 }
