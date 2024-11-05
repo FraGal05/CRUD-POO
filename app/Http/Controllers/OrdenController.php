@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class OrdenController extends Controller
 {
-    // Listar órdenes
+    
     public function index()
     {
         $ordenes = Orden::with(['cliente', 'tarea', 'estado'])->get();

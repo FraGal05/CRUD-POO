@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('clientes', function (Blueprint $table) {
-            $table->string('dni')->primary();
+            $table->id();
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fecha_nac');

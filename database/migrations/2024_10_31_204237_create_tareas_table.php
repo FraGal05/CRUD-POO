@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tareas', function (Blueprint $table) {
-            $table->int('codigo')->primary();
+            $table->id(); 
             $table->string('nombre');
             $table->timestamps();
         });
-        
     }
+    
 
     /**
      * Reverse the migrations.

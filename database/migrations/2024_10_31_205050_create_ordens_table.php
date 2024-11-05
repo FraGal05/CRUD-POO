@@ -16,13 +16,24 @@ return new class extends Migration
         Schema::create('ordenes', function (Blueprint $table) {
             $table->string('N°Orden')->primary();
             $table->string('direccion');
-            $table->foreignId('tarea')->constrained('tareas'('nombre'));
-            $table->foreignId('cliente')->constrained('clientes'('nombre'));
+            $table->unsignedBigInteger('tarea_id');
+            $table->foreign('tarea_id')
+                  ->references('id')
+                  ->on('tareas');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')
+                  ->references('id')
+                  ->on('clientes');
+            $table->unsignedBigInteger('estado_id');
+            $table->foreign('estado_id')
+                  ->references('id')
+                  ->on('estado');
             $table->date('fecha');
-            $table->foreignId('estado')->constrained('estado'('nombre'));
             $table->timestamps();
         });
     }
+    
+    
         
 
     /**

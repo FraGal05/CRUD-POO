@@ -14,16 +14,20 @@
                             Ir a Clientes
                         </button>
                     </a>
-                    <a href="{{ route('Estados.index') }}">
+                    <p>
+                        <a href="{{ route('estados.index') }}">
                         <button>
                             Ir a Estados
                         </button>
-                    </a>
+                        </a>
+                    </p>
+                    <p>
                     <a href="{{ route('ordenes.index') }}">
                         <button>
                             Ir a Ordenes
                         </button>
                     </a>
+                    </p>
                     <a href="{{ route('tareas.index') }}">
                         <button>
                             Ir a Tareas
