@@ -13,7 +13,6 @@ class Estado extends Model
     public $incrementing = false;
     protected $fillable = ['codigo', 'nombre'];
 
-    // Relación uno a muchos con Orden
     public function ordenes()
     {
         return $this->hasMany(Orden::class, 'estado');

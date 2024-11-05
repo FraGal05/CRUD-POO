@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 
 Route::resource('clientes', ClienteController::class);
+Route::resource('estados', EstadoController::class);
+Route::resource('ordenes', OrdenController::class);
+Route::resource('tareas', TareaController::class);
 
 
 Route::get('/', function () {
