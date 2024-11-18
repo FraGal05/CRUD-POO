@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Tarea;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTareaRequest;
