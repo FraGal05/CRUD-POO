@@ -2,87 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tarea;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTareaRequest;
-use App\Http\Requests\UpdateTareaRequest;
+use Illuminate\Http\Request;
 
 class TareaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $tareas = Tarea::all();
+        return view('tareas.index', compact('tareas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('tareas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTareaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTareaRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:tareas',
+            'descripcion' => 'nullable|string|max:1000',
+        ]);
+
+        Tarea::create($request->all());
+        return redirect()->route('tareas.index')->with('success', 'Tarea creada con éxito.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tarea  $tarea
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tarea $tarea)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tarea  $tarea
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tarea $tarea)
     {
-        //
+        return view('tareas.edit', compact('tarea'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTareaRequest  $request
-     * @param  \App\Models\Tarea  $tarea
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTareaRequest $request, Tarea $tarea)
+    public function update(Request $request, Tarea $tarea)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:tareas,nombre,' . $tarea->id,
+            'descripcion' => 'nullable|string|max:1000',
+        ]);
+
+        $tarea->update($request->all());
+        return redirect()->route('tareas.index')->with('success', 'Tarea actualizada con éxito.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tarea  $tarea
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tarea $tarea)
     {
-        //
+        $tarea->delete();
+        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada con éxito.');
     }
 }

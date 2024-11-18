@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\OrdenController;
+use App\Http\Controllers\TareaController;
 
 Route::resource('tareas', TareaController::class);
-
+Route::resource('clientes', ClienteController::class);
+Route::resource('estados', EstadoController::class);
+Route::resource('ordenes', OrdenController::class);
 
 Route::get('/', function () {
     return view('welcome');

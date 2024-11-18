@@ -9,6 +9,8 @@ class Estado extends Model
 {
     use HasFactory;
 
+    protected $table = 'estados';
+
     protected $primaryKey = 'codigo';
     public $incrementing = false;
     protected $fillable = ['codigo', 'nombre'];
