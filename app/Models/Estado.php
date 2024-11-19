@@ -9,10 +9,8 @@ class Estado extends Model
 {
     use HasFactory;
 
-    protected $table = 'estados';
-
-    protected $primaryKey = 'codigo';
-    public $incrementing = false;
+    protected $primaryKey = 'codigo'; // Establecemos 'codigo' como la clave primaria
+    public $incrementing = false; // No es autoincremental
     protected $fillable = ['codigo', 'nombre'];
 
     public function ordenes()

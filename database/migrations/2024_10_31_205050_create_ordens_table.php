@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ordenes', function (Blueprint $table) {
+        Schema::create('ordens', function (Blueprint $table) {
             $table->string('N°Orden')->primary();
             $table->string('direccion');
             $table->unsignedBigInteger('tarea_id');
@@ -24,9 +24,9 @@ return new class extends Migration
             $table->foreign('cliente_id')
                   ->references('id')
                   ->on('clientes');
-            $table->unsignedBigInteger('estado_id');
+            $table->string('estado_id');
             $table->foreign('estado_id')
-                  ->references('id')
+                  ->references('codigo')
                   ->on('estados');
             $table->date('fecha');
             $table->timestamps();

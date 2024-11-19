@@ -20,13 +20,14 @@ class EstadoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'codigo' => 'required|unique:estados,codigo',
-            'nombre' => 'required'
+            'codigo' => 'required|unique:estados,codigo', // Validamos 'codigo'
+            'nombre' => 'required',
         ]);
-
+    
         Estado::create($request->all());
         return redirect()->route('estados.index');
     }
+    
 
     public function edit(Estado $estado)
     {

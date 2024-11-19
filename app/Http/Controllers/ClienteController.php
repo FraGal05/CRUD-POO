@@ -19,17 +19,25 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'dni' => 'required|unique:clientes,dni',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'fecha_nac' => 'required|date'
-        ]);
+{
+    $request->validate([
+        'DNI' => 'required|unique:clientes,DNI',  // Asegúrate de que 'DNI' esté en mayúsculas si corresponde
+        'nombre' => 'required',
+        'apellido' => 'required',
+        'fecha_nac' => 'required|date'
+    ]);
 
-        Cliente::create($request->all());
-        return redirect()->route('clientes.index');
-    }
+    Cliente::create([
+        'DNI' => $request->DNI,
+        'nombre' => $request->nombre,
+        'apellido' => $request->apellido,
+        'fecha_nac' => $request->fecha_nac
+    ]);
+
+    return redirect()->route('clientes.index')->with('success', 'Cliente guardado correctamente');
+
+}
+
 
     public function edit(Cliente $cliente)
     {

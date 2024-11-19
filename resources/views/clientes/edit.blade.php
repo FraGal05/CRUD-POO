@@ -1,5 +1,5 @@
 <h1>Editar Cliente</h1>
-<form action="{{ route('clientes.update', $cliente->dni) }}" method="POST">
+<form action="{{ route('clientes.update', $cliente->DNI) }}" method="POST">
     @csrf
     @method('PUT')
     Nombre: <input type="text" name="nombre" value="{{ $cliente->nombre }}"><br>

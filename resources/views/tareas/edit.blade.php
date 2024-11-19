@@ -1,8 +1,8 @@
 <h1>Editar Tarea</h1>
-<form action="{{ route('tareas.update', $tarea->codigo) }}" method="POST">
+<form action="{{ route('tareas.update', $tarea->id) }}" method="POST">
     @csrf
     @method('PUT')
-    Código: <input type="text" name="codigo" value="{{ $tarea->codigo }}" disabled><br>
     Nombre: <input type="text" name="nombre" value="{{ $tarea->nombre }}"><br>
+    Descripción: <input type="text" name="descripción" value="{{$tarea->descripcion}}"><br>
     <button type="submit">Actualizar</button>
 </form>

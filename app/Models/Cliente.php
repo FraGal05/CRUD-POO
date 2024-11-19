@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
- 
-    protected $primaryKey = 'dni';
+
+    protected $primaryKey = 'id';
     public $incrementing = false;
-    protected $fillable = ['dni', 'nombre', 'apellido', 'fecha_nac'];
+    protected $fillable = ['id', 'DNI', 'nombre', 'apellido', 'fecha_nac'];
 
     // Relación uno a muchos con Orden
     public function ordenes()

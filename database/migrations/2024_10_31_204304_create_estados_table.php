@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('estados', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
+            $table->string('codigo')->primary(); // Hacemos 'codigo' la clave primaria
+            $table->string('estado');
+            $table->string('descripcion');
             $table->timestamps();
         });
         

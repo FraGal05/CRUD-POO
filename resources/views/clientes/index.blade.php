@@ -1,5 +1,5 @@
-<em><h1>Lista de Clientes</h1></em>
-<a href="{{ route('clientes.create') }}"><em>Agregar Cliente</em></a>
+<h1>Lista de Clientes</h1>
+<a href="{{ route('clientes.create') }}">Agregar Cliente</a>
 <table border="1">
     <style>
         .centrar{
@@ -14,13 +14,13 @@
     </tr>
     @foreach($clientes as $cliente)
         <tr>
-            <td>{{ $cliente->dni }}</td>
+            <td>{{ $cliente->DNI }}</td> 
             <td>{{ $cliente->nombre }}</td>
             <td>{{ $cliente->apellido }}</td>
             <td>{{ $cliente->fecha_nac }}</td>
             <td>
-                <a href="{{ route('clientes.edit', $cliente->dni) }}">Editar</a>
-                <form action="{{ route('clientes.destroy', $cliente->dni) }}" method="POST" style="display:inline;">
+                <a href="{{ route('clientes.edit', $cliente->DNI) }}">Editar</a> 
+                <form action="{{ route('clientes.destroy', $cliente->DNI) }}" method="POST" style="display:inline;"> 
                     @csrf
                     @method('DELETE')
                     <button type="submit">Eliminar</button>

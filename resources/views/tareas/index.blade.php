@@ -4,15 +4,16 @@
     <tr>
         <th>Código</th>
         <th>Nombre</th>
-        <th>Acciones</th>
+        <th>Descripción</th>
     </tr>
     @foreach($tareas as $tarea)
         <tr>
-            <td>{{ $tarea->codigo }}</td>
+            <td>{{ $tarea->id }}</td>
             <td>{{ $tarea->nombre }}</td>
+            <td>{{ $tarea->descripcion}}</td>
             <td>
-                <a href="{{ route('tareas.edit', $tarea->codigo) }}">Editar</a>
-                <form action="{{ route('tareas.destroy', $tarea->codigo) }}" method="POST" style="display:inline;">
+                <a href="{{ route('tareas.edit', $tarea->id) }}">Editar</a>
+                <form action="{{ route('tareas.destroy', $tarea->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Eliminar</button>

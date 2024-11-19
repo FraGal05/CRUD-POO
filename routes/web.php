@@ -21,6 +21,7 @@ use App\Http\Controllers\TareaController;
 
 Route::resource('tareas', TareaController::class);
 Route::resource('clientes', ClienteController::class);
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 Route::resource('estados', EstadoController::class);
 Route::resource('ordenes', OrdenController::class);
 

@@ -2,14 +2,13 @@
 <a href="{{ route('estados.create') }}">Agregar Estado</a>
 <table border="1">
     <tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
+        <th>Estado</th>
+        <th>Descripcion</th>
     </tr>
     @foreach($estados as $estado)
         <tr>
-            <td>{{ $estado->codigo }}</td>
-            <td>{{ $estado->nombre }}</td>
+            <td>{{ $estado->estado }}</td>
+            <td>{{ $estado->descripcion }}</td>
             <td>
                 <a href="{{ route('estados.edit', $estado->codigo) }}">Editar</a>
                 <form action="{{ route('estados.destroy', $estado->codigo) }}" method="POST" style="display:inline;">
