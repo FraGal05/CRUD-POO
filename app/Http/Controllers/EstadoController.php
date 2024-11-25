@@ -2,14 +2,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estado;
+use App\Models\Tarea;
 use Illuminate\Http\Request;
 
 class EstadoController extends Controller
 {
     public function index()
     {
+
+        $tareas = Tarea::with('estado')->get();
+
         $estados = Estado::all();
-        return view('estados.index', compact('estados'));
+        return view('estados.index', compact('tareas','estados'));
     }
 
     public function create()
@@ -20,14 +24,17 @@ class EstadoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'codigo' => 'required|unique:estados,codigo', // Validamos 'codigo'
-            'nombre' => 'required',
+            'estado' => 'required|string|max:255',
+            'descripcion' => 'required|string',
         ]);
-    
-        Estado::create($request->all());
-        return redirect()->route('estados.index');
+
+        Estado::create([
+            'estado' => $request->estado,
+            'descripcion' => $request->descripcion,
+        ]);
+
+        return redirect()->route('estados.index')->with('success', 'Estado creado exitosamente.');
     }
-    
 
     public function edit(Estado $estado)
     {
@@ -37,16 +44,29 @@ class EstadoController extends Controller
     public function update(Request $request, Estado $estado)
     {
         $request->validate([
-            'nombre' => 'required'
+            'estado' => 'required|string|max:255',
+            'descripcion' => 'required|string',
         ]);
 
-        $estado->update($request->all());
-        return redirect()->route('estados.index');
+        $estado->update($request->only(['estado', 'descripcion']));
+
+        return redirect()->route('estados.index')->with('success', 'Estado actualizado exitosamente.');
+    }
+
+    public function updateTareaEstado(Request $request, Tarea $tarea)
+    {
+        $request->validate([
+            'estado_id' => 'required|exists:estados,id',
+        ]);
+
+        $tarea->update(['estado_id' => $request->estado_id]);
+
+        return redirect()->route('estados.index')->with('success', 'Estado actualizado correctamente.');
     }
 
     public function destroy(Estado $estado)
     {
         $estado->delete();
-        return redirect()->route('estados.index');
+        return redirect()->route('estados.index')->with('success', 'Estado eliminado exitosamente.');
     }
 }

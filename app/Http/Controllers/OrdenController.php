@@ -22,6 +22,7 @@ class OrdenController extends Controller
     {
         $clientes = Cliente::all();
         $tareas = Tarea::all();
+        $tareas = Tarea::with('estado')->get();
         $estados = Estado::all();
         return view('ordenes.create', compact('clientes', 'tareas', 'estados'));
     }
@@ -33,21 +34,24 @@ class OrdenController extends Controller
             'nrOrden' => 'required|string',
             'direccion' => 'required|string',
             'cliente_id' => 'required|exists:clientes,dni',
-            'tarea_id' => 'required|exists:tareas,codigo',
-            'estado_id' => 'required|exists:estados,codigo',
+            'tarea_id' => 'required|exists:tareas,id',
+            'estado_id' => 'required|exists:estados,id',
             'fecha' => 'required|date',
         ]);
+
+        $tarea = Tarea::findOrFail($request->tarea_id);
 
         Orden::create($request->all());
 
         return redirect()->route('ordenes.index');
     }
 
-    // Formulario para editar una orden
+    
     public function edit(Orden $orden)
     {
         $clientes = Cliente::all();
         $tareas = Tarea::all();
+        $tareas = Tarea::with('estado')->get();
         $estados = Estado::all();
         return view('ordenes.edit', compact('orden', 'clientes', 'tareas', 'estados'));
     }
@@ -58,10 +62,12 @@ class OrdenController extends Controller
         $request->validate([
             'direccion' => 'required|string',
             'cliente_id' => 'required|exists:clientes,dni',
-            'tarea_id' => 'required|exists:tareas,codigo',
-            'estado_id' => 'required|exists:estados,codigo',
+            'tarea_id' => 'required|exists:tareas,id',
+            'estado_id' => 'required|exists:estados,id',
             'fecha' => 'required|date',
         ]);
+
+        $tarea = Tarea::findOrFail($request->tarea_id);
 
         $orden->update($request->all());
 

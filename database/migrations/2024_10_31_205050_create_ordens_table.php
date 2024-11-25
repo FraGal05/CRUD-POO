@@ -24,9 +24,9 @@ return new class extends Migration
             $table->foreign('cliente_id')
                   ->references('id')
                   ->on('clientes');
-            $table->string('estado_id');
+            $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')
-                  ->references('codigo')
+                  ->references('id')
                   ->on('estados');
             $table->date('fecha');
             $table->timestamps();

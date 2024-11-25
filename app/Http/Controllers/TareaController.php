@@ -45,6 +45,21 @@ class TareaController extends Controller
         return redirect()->route('tareas.index')->with('success', 'Tarea actualizada con éxito.');
     }
 
+    public function updateEstado(Request $request, Tarea $tarea)
+{
+    // Validar la entrada
+    $request->validate([
+        'estado_id' => 'required|exists:estados,id', // Asegúrate de que el estado exista
+    ]);
+
+    // Actualizar el estado de la tarea
+    $tarea->estado_id = $request->estado_id;
+    $tarea->save();
+
+    // Redirigir o devolver respuesta
+    return redirect()->route('tareas.index')->with('success', 'Estado actualizado correctamente.');
+}
+
     public function destroy(Tarea $tarea)
     {
         $tarea->delete();

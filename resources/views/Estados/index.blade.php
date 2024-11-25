@@ -1,22 +1,38 @@
-<h1>Lista de Estados</h1>
-<a href="{{ route('estados.create') }}">Agregar Estado</a>
+<h1>Lista de Tareas y Estados</h1>
+
 <table border="1">
-    <tr>
-        <th>Estado</th>
-        <th>Descripcion</th>
-    </tr>
-    @foreach($estados as $estado)
+    <thead>
         <tr>
-            <td>{{ $estado->estado }}</td>
-            <td>{{ $estado->descripcion }}</td>
+            <th>Nombre de la Tarea</th>
+            <th>Descripción</th>
+            <th>Estado Actual</th>
+            <th>Actualizar Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($tareas as $tarea)
+        <tr>
+            <td>{{ $tarea->nombre }}</td>
+            <td>{{ $tarea->descripcion }}</td>
+            <td>{{ $tarea->estado ? $tarea->estado->estado : 'Sin Estado' }}</td>
             <td>
-                <a href="{{ route('estados.edit', $estado->codigo) }}">Editar</a>
-                <form action="{{ route('estados.destroy', $estado->codigo) }}" method="POST" style="display:inline;">
+                <form action="{{ route('tareas.update.estado', $tarea->id) }}" method="POST">
                     @csrf
-                    @method('DELETE')
-                    <button type="submit">Eliminar</button>
+                    @method('PATCH')
+                    <select name="estado_id" required>
+                        <option value="">Seleccionar Estado</option>
+                        @foreach($estados as $estado)
+                        <option value="{{ $estado->id }}" 
+                            {{ $tarea->estado_id == $estado->id ? 'selected' : '' }}>
+                            {{ $estado->estado }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <button type="submit">Guardar</button>
                 </form>
             </td>
         </tr>
-    @endforeach
+        @endforeach
+    </tbody>
 </table>
+

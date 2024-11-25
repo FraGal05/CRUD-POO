@@ -9,12 +9,19 @@ class Estado extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'codigo'; // Establecemos 'codigo' como la clave primaria
-    public $incrementing = false; // No es autoincremental
-    protected $fillable = ['codigo', 'nombre'];
+    protected $table = 'estados';
 
+   
+    protected $fillable = ['estado', 'descripcion'];
+
+   
     public function ordenes()
     {
         return $this->hasMany(Orden::class, 'estado');
+    }
+
+    public function tareas()
+    {
+        return $this->hasMany(Tarea::class);
     }
 }

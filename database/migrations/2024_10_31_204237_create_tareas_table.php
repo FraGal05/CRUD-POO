@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id(); 
             $table->string('nombre');
             $table->text('descripcion')->default('');
+            $table->foreignId('estado_id')->nullable()->constrained('estados');
             $table->timestamps();
         });
     }

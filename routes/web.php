@@ -3,17 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\OrdenController;
@@ -24,6 +13,8 @@ Route::resource('clientes', ClienteController::class);
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 Route::resource('estados', EstadoController::class);
 Route::resource('ordenes', OrdenController::class);
+Route::patch('/tareas/{tarea}/estado', [TareaController::class, 'updateEstado'])->name('tareas.update.estado');
+
 
 Route::get('/', function () {
     return view('welcome');

@@ -15,4 +15,9 @@ class Tarea extends Model
     {
         return $this->hasMany(Orden::class, 'tarea');
     }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
+    }
 }
